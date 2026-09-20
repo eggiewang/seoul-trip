@@ -192,6 +192,9 @@ a{color:var(--cel-d)}
 .chk[aria-pressed="true"] .box::after{content:"";position:absolute;left:5px;top:1.5px;width:4.5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(43deg)}
 .chk[aria-pressed="true"] .ct{color:var(--ink3);text-decoration:line-through;text-decoration-color:var(--line)}
 .ct{text-align:left}
+.ckl{display:inline-block;margin-left:8px;font-size:12.5px;padding:3px 10px;border-radius:99px;background:var(--cel-l);color:var(--cel-d);border:1px solid #b9d3c9;text-decoration:none;white-space:nowrap;vertical-align:1px}
+.ckl:hover{background:var(--cel);color:#fff}
+.chk[aria-pressed="true"] .ckl{text-decoration:none}
 
 /* taxi overlay */
 .ovl{position:fixed;inset:0;z-index:90;background:rgba(18,28,33,.82);display:none;align-items:center;justify-content:center;padding:18px}
@@ -250,6 +253,7 @@ a{color:var(--cel-d)}
   .optbar,.optbar .lbl{font-size:13.5px}
   .foot{font-size:13px}
   .chk{font-size:15px;padding:12px}
+  .ckl{font-size:13.5px;padding:11px 14px;min-height:44px;line-height:22px;display:inline-flex;align-items:center;margin-top:4px}
   .ovlbox .oh,.ovlbox .otip{font-size:13.5px}
 }
 @media print{.top,.acts,.filters{display:none}}
@@ -302,7 +306,7 @@ const DAYS = [
   ],
   blocks:[
     {time:"15:10 起",dur:"约 1 小时",kind:"fix",title:"落地仁川 T1，入境取行李",
-     desc:"入境层 CU / GS25 买 3 张 T-money，各充 ₩30,000。",
+     desc:"入境层 CU / GS25 买 2 张 T-money，各充 ₩30,000。",
      tip:"先连机场 WiFi 或开流量，确保 Uber 能用。连假末尾入境人多，这段别压缩。"},
     {time:"约 16:10",dur:"约 60 分钟",kind:"move",title:"Uber 门到门直达威斯汀",
      desc:"目的地填 서울 강남구 봉은사로 524。优先大型车，约 ₩60,000 起 + 高速费。",
@@ -548,29 +552,25 @@ const FOOD = [
 const CHECK = [
  {g:"出发前 7 天（9/23 前）",items:[
   "装好 Uber App 并绑卡，测试能正常登录",
-  "致电 큰기와집 02-722-9024，确认 9/27 营业并订午餐座位（3 人）",
-  "线上或致电预约 삼원가든 9/27 晚餐（3 人），注意周日晚市 L.O. 20:30",
-  "定下 9/28 晚的 양곱창 去哪家：우정양곱창 不接受预约（16:30 首轮最稳）／삼성원조양곱창 16:00 开门；走纯 곱창 路线则致电 곰바위 02-511-0068",
-  "致电 목구멍 신논현점 占 9/29 晚餐位（18:45 前后，3 人）",
-  "致电 목포명가 02-545-3592，确认 9/26 营业并问清当周是否供应秋季전어",
-  "与父母确认对生腌与生鱼片的接受度；生章鱼不列入任何一餐",
-  "把常用肠胃药加进药品清单（本行程含酱蟹与多次生食）",
-  "与皮肤科确认 9/29 17:00 预约、楼层与入口位置",
-  "确认威斯汀退房时间与行李寄存政策"]},
+  "致电 큰기와집 02-722-9024，确认 9/27（周日，连假最后一天）营业并订午餐座位（3 人）",
+  "线上或致电预约 삼원가든 三元花园总店 9/27 晚餐（3 人），注意周日晚市 L.O. 20:30",
+  "定下 9/28 晚的 양곱창 去哪家：우정양곱창 不接受一般预约（16:30 首轮入座最稳）／삼성원조양곱창 16:00 开门、离酒店更近；若走纯 곱창 路线则致电 곰바위 02-511-0068 预约",
+  "致电 목구멍 신논현점 占 9/29 晚餐位（猪五花，18:45 前后，3 人）",
+  "致电 목포명가 봉은사역점 02-545-3592，确认 9/26 营业并订晚餐，问清当周是否供应秋季전어",
+  "与皮肤科确认 9/29 17:00 预约、楼层与入口位置，问清是否需提前到场填表"]},
  {g:"出发前 48 小时（9/24）",items:[
-  "在 Uber App 内预约 9/30 13:00 从威斯汀出发至仁川 T1，优先大型车并锁价",
-  "致电 9/26 与 9/27 的餐厅确认连假营业状态——这两天是唯一受影响的日子",
-  "用 Naver 地图确认圣水洞、汉南洞的店 9/28 周一营业（Leeum 周一闭馆、KOSSETTE 周一 20:00 打烊）",
-  "若 9/29 打算选 C 案，确认新沙洞店铺当日（周二）营业",
-  "用韩国气象厅官网复查天气，重点看 9/27 钟路降雨概率",
-  "在手机地图 App 里把韩文地址收藏成书签"]},
+  {t:"填写入境卡",u:"https://www.e-arrivalcard.go.kr/portal/main/index.do?locale=CH",ul:"韩国电子入境卡官网"},
+  "用 Naver 地图逐个确认圣水洞、汉南洞的店 9/28（周一）营业（Leeum 周一闭馆、KOSSETTE 周一 20:00 打烊）",
+  "若 9/29 打算选 C 案，逐个确认新沙洞林荫道店铺与咖啡馆当日（周二）营业",
+  "用韩国气象厅官网复查 9/26–9/30 天气，重点看 9/27 钟路降雨概率"]},
  {g:"当天 / 现场",items:[
-  "9/26 落地后第一件事：在机场便利店买 3 张 T-money 并充值",
-  "9/27 出门前确认光化门 14:00 换岗是否照常举行",
+  "买国际漫游包",
+  "9/26 落地后第一件事：在机场便利店买 2 张 T-money 并充值",
+  "9/27 出门前确认光化门当天 14:00 换岗是否照常举行（雨天或临时活动可能取消）",
   "9/27 北村必须在 17:00 前离开红区",
   "9/29 务必在 16:15 从酒店出发（打车则 16:00）",
   "9/30 在 11:30 前完成退房与行李寄存；13:00 准时上车",
-  "每天出门前检查：父母的常用药、外套、雨伞、充电宝"]}
+  "每天出门前检查：外套、雨伞、充电宝"]}
 ];
 
 /* ── 应急速查 ─────────────────────── */
@@ -829,10 +829,13 @@ function renderFood(){
 function renderPrep(){
   let n=0,total=0;
   const gs=CHECK.map(g=>{
-    const items=g.items.map(t=>{
+    const items=g.items.map(it=>{
       const key="c"+(total++);
       const on=!!ST.done[key]; if(on)n++;
-      return `<button class="chk" data-chk="${key}" aria-pressed="${on}"><span class="box"></span><span class="ct">${esc(t)}</span></button>`;
+      const txt=(typeof it==="string")?esc(it):esc(it.t);
+      const link=(typeof it==="object"&&it.u)
+        ? `<a class="ckl" href="${it.u}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(it.ul||"打开链接")}</a>` : "";
+      return `<button class="chk" data-chk="${key}" aria-pressed="${on}"><span class="box"></span><span class="ct">${txt}${link}</span></button>`;
     }).join("");
     return `<h3 class="sub">${esc(g.g)}</h3>${items}`;
   }).join("");
@@ -849,7 +852,7 @@ function renderPrep(){
       <tr><td><b>合计</b></td><td>约 ₩560,000</td><td><b>约 ₩1,080,000</b><br><span class="muted">≈ 人民币 5,600 元</span></td><td>约 ₩1,620,000</td></tr>
     </tbody></table>
     <div class="note gold"><span class="nt">T-money 与换汇</span>
-    <b>T-money：</b>仁川机场入境层 CU / GS25 直接买，卡费约 ₩4,000–5,000/张，三人各一张、每张先充 ₩30,000（余额退还上限约 ₩5,000，别充太多）。<br>
+    <b>T-money：</b>仁川机场入境层 CU / GS25 直接买，卡费约 ₩4,000–5,000/张，<b>买 2 张</b>、每张先充 ₩30,000（余额退还上限约 ₩5,000，别充太多）。<br>
     <b>换汇：</b>机场汇率最差，只换够路上用的（约 ₩100,000）。以刷卡为主 + 用银联卡在 ATM 取现，现金准备 ₩300,000–400,000 应付小店即可。</div>
     <h2 class="sec">往返机场：统一叫 Uber</h2>
     <div class="card"><div class="t-desc">
