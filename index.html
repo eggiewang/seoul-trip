@@ -69,6 +69,12 @@ a{color:var(--cel-d)}
 .dayhead .dh-theme{font-size:15px;margin-top:3px;color:var(--ink2)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
 .chip{font-size:11.5px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);background:var(--card2);color:var(--ink2);white-space:nowrap}
+.leanbar{display:flex;align-items:center;gap:0;margin:12px 0 4px;flex-wrap:wrap}
+.segbtn{font-family:var(--sans);font-size:13px;padding:5px 15px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
+.segbtn:first-of-type{border-radius:7px 0 0 7px}
+.segbtn:nth-of-type(2){border-radius:0 7px 7px 0;border-left:0}
+.segbtn[aria-pressed="true"]{background:var(--cel);border-color:var(--cel);color:#fff}
+.leanhint{font-size:12px;color:var(--ink3);margin-left:10px}
 .chip.cel{background:var(--cel-l);border-color:#b9d3c9;color:var(--cel-d)}
 .chip.dan{background:var(--dan-l);border-color:#e6c3c0;color:var(--dan)}
 .chip.och{background:var(--ochre-l);border-color:#e0cfa5;color:var(--ochre)}
@@ -230,6 +236,8 @@ a{color:var(--cel-d)}
   .nav button{font-size:14px;padding:7px 11px 9px}
   .nav button .d{font-size:12px}
   .chip{font-size:12.5px;padding:4px 10px}
+  .segbtn{font-size:14px;padding:9px 18px;min-height:44px}
+  .leanhint{font-size:13px;flex-basis:100%;margin:5px 0 0}
   .note{font-size:15px}
   .note .nt{font-size:14px}
   .muted,.kv{font-size:14px}
@@ -333,53 +341,41 @@ const DAYS = [
   gantt:[["move",6.7,6.6,"入境+取行李"],["move",13.4,13.3,"Uber 60min",1],["rest",26.7,16.6,"入住缓一缓"],["food",46.7,13.3,"晚餐"],["flex",60,13.3,"COEX 夜逛（可砍）",1]]
 },
 {
-  id:"0927", date:"9/27", dow:"周日", theme:"爸爸的文化日，钟路一个片区走完",
-  tags:[["cel","唯一文化日"],["och","步行强度 中高 · 约 2.5 km"],["dan","两家店须提前预约"]],
+  id:"0927", date:"9/27", dow:"周日", theme:"爸爸的文化日，钟路上午走完后南下江南",
+  tags:[["cel","唯一文化日"],["och","步行强度 中"],["dan","晚餐韩牛须提前预约"]],
   notes:[
-    {k:"",t:"今天的主线",b:"景福宫 → 午餐酱蟹 → 守门将换岗 → 青瓦台前路外景 → 回酒店休息 → 晚餐韩牛。<b>两个弹性位（北村、清溪川）都砍掉，今天依然完整。</b>"},
-    {k:"gold",t:"三条必须知道的硬信息",b:"<b>① 景福宫：</b>9–10 月 09:00–18:00（入场截止 17:00），<b>9/24–9/27 连假四大宫免费</b>，今天是最后一天免票。守门将换岗在光化门前 10:00 与 14:00 各一场（约 20 分钟），<b>建议瞄准 14:00 那场</b>。<br><b>② 青瓦台只走外景、不进场。</b>自 2025 年 8 月起停止对公众参观，2026 年 9 月仍未恢复，不用抢预约。从神武门往北走 10–12 分钟，围墙外能看到青瓦屋顶。这段没有座位与洗手间，先在宫内解决。<br><b>③ 北村是居民区。</b>核心巷弄只能 <b>10:00–17:00</b> 进入，违规可罚 10 万韩元。请小声交谈、不推门进私院、不坐居民门前台阶。"}
+    {k:"",t:"今天的主线",b:"上午在钟路一次走完文化线（景福宫 + 守门将换岗 + 青瓦台前路外景）→ 中午南下<b>江南 / 清潭吃午饭</b> → 回酒店休息 → 晚餐韩牛。<b>一路向南不折返，全天只出门一趟。</b>"},
+    {k:"gold",t:"上午在钟路要知道的三点",b:"<b>① 景福宫：</b>9/24–9/27 连假四大宫免费，今天最后一天免票。守门将换岗光化门前 <b>10:00 场</b>（约 20 分钟），先看完再进宫最顺。<br><b>② 青瓦台只走外景。</b>已停止对公众参观，从神武门往北走 10–12 分钟，围墙外看青瓦屋顶即可，不用抢预约。<br><b>③ 北村是居民区</b>（就在景福宫旁），想去就上午顺路走一小段，<b>10:00–17:00</b> 可进，请小声、不进私院。"}
   ],
   blocks:[
-    {time:"约 9:40",dur:"约 40 分钟",kind:"move",title:"酒店早餐后出发，奉恩寺站 → 景福宫站",
-     desc:"9 号线急行至高速巴士客运站换 3 号线，1 次换乘。",
-     tip:"嫌麻烦就打车，约 35–40 分钟。今天是唯一需要早点出门的一天。"},
-    {time:"上午",dur:"约 1.5 小时",kind:"cul",title:"景福宫",
-     desc:"光化门 → 兴礼门 → 勤政殿 → 庆会楼 → 香远亭，从神武门出。",
-     tip:"步行强度中，宫内约 2.5 km、无遮荫。勤政殿 + 庆会楼是精华，不必走完全部。带伞。"},
-    {time:"午餐",dur:"约 1.5 小时",kind:"food",title:"全程唯一一顿酱蟹",
+    {time:"约 9:20",dur:"约 40 分钟",kind:"move",title:"酒店早餐后出发，奉恩寺站 → 景福宫站",
+     desc:"9 号线急行换 3 号线，1 次换乘；或打车约 35–40 分钟。",
+     tip:"今天唯一需要早点出门的一天，为的是赶 10:00 换岗。"},
+    {time:"上午",dur:"约 2.5 小时",kind:"cul",title:"景福宫 + 10:00 换岗 + 青瓦台前路外景",
+     desc:"先在光化门看 10:00 换岗 → 进宫（勤政殿 + 庆会楼是精华）→ 神武门出走青瓦台前路。",
+     tip:"宫内无遮荫、缓坡树荫，带伞。想加北村就从这里顺路走一段，累了直接南下。"},
+    {time:"午餐",dur:"约 1.5 小时",kind:"food",title:"南下江南 / 清潭吃午饭",
      pick:"d2-lunch",
      opts:[
-       {n:"큰기와집 大瓦房",s:"米其林推荐韩定食 · 安国站 190 m · 须提前订座",tag:["tg-def","default"],taxi:{kr:"서울 종로구 북촌로 22 1층",cn:"큰기와집（大瓦房 · 酱蟹）"}},
-       {n:"토속촌삼계탕",s:"参鸡汤 · 全年无休 · 想吃清淡就选它",tag:["tg-alt","同片区"],taxi:{kr:"서울 종로구 자하문로5길 5",cn:"土俗村参鸡汤"}},
-       {n:"종로계림닭도리탕원조",s:"蒜香鸡汤锅 · 钟路本店",tag:["tg-alt","同片区"]},
-       {n:"三清洞 / 北村沿街韩定食",s:"走到哪吃到哪，不用提前定",tag:["tg-alt","机动"]}
+       {n:"서백자 간장게장",s:"酱蟹 · 江南 COEX 旁 · 酒店步行可达 · 三人都爱生食",tag:["tg-def","default"],taxi:{kr:"서울 강남구 삼성로 542 석천빌딩 2층",cn:"서백자 간장게장（酱蟹）"}},
+       {n:"프로간장게장 신사본점",s:"酱蟹 · 新沙 · 全年无休 · 有中文菜单",tag:["tg-alt","另一家酱蟹"],taxi:{kr:"서울 서초구 강남대로97길 7 프로빌딩",cn:"普乐酱蟹 新沙总店"}},
+       {n:"강남면옥 본점",s:"冷面 + 炖排骨 · 清潭/论岘 · 零辣椅座 · 有中文服务",tag:["tg-alt","清淡"],taxi:{kr:"서울 강남구 논현로152길 34",cn:"강남면옥 본점（认准本店）"}},
+       {n:"큰기와집 大瓦房",s:"米其林韩定食酱蟹 · 但在钟路安国，选它就中午留钟路",tag:["tg-alt","留钟路才选"],taxi:{kr:"서울 종로구 북촌로 22 1층",cn:"큰기와집（大瓦房 · 酱蟹）"}}
      ],
-     tip:"大瓦房须提前电话预约座位（☎ 02-722-9024），是连假窗口内少数标「公休日照常营业」的名店。点单：酱蟹两份 + 黄金石首鱼或蟹黄拌饭作熟食。从景福宫打车约 8 分钟。"},
-    {time:"午后",dur:"约 1 小时",kind:"cul",title:"守门将换岗（14:00 场）→ 青瓦台前路外景",
-     desc:"换岗约 20 分钟，站着看，累了找台阶坐。之后往北走青瓦台前路，缓坡树荫。",
-     tip:"雨天或临时活动可能取消，出门前确认。不要靠近警戒线拍摄安保设施。"},
-    {time:"弹性位 ①",dur:"0–1 小时",kind:"flex",title:"北村韩屋村 / 三清洞慢走",
-     desc:"40–60 分钟足够。顺坡往安国站方向走比逆坡省力得多。",
-     tip:"必须 17:00 前离开红区。已走累就跳过，不影响完整度。",
-     taxi:{kr:"서울 종로구 계동길 37",cn:"北村韩屋村"}},
-    {time:"弹性位 ②",dur:"0–40 分钟",kind:"flex",title:"清溪川散步",
-     desc:"免费、24 小时、步道平整无台阶。走前半段 20–30 分钟就折返。",
-     tip:"这是今天第四段路。问一句「还想再走 30 分钟吗」，答不出来就直接回酒店。"},
-    {time:"傍晚",dur:"约 1.5 小时",kind:"rest",title:"回房休息",
-     desc:"打车约 30 分钟，三人 ₩20,000–25,000。",
-     tip:"这段不能删。今天步行量最大，晚上还有一顿正餐。"},
+     tip:"从景福宫南下江南约 40 分钟。酱蟹是三人都爱的生食，서백자 就在 COEX 旁、离酒店最近，午餐吃完顺势回房休息。"},
+    {time:"下午",dur:"约 2 小时",kind:"rest",title:"回酒店休息（可选楼下 COEX 轻逛）",
+     desc:"",tip:"今天上午步行量最大，晚上还有一顿正餐，这段务必留。不想休息就在 COEX / 现代百货就近逛逛。"},
     {time:"晚餐",dur:"约 2 小时",kind:"food",title:"韩牛",
      pick:"d2-dinner",
      opts:[
        {n:"삼원가든 三元花园总店",s:"庭园式 · 代烤 · 有包厢 · 全年无休",tag:["tg-def","default"],taxi:{kr:"서울 강남구 언주로 835",cn:"삼원가든（三元花园 · 韩牛）"}},
-       {n:"벽제갈비 더청담",s:"狎鸥亭罗德奥站附近 · 人均 ₩100,000+",tag:["tg-alt","升级"],taxi:{kr:"서울 강남구 청담동 (벽제갈비 더청담)",cn:"벽제갈비 더청담"}},
        {n:"금장한우 COEX",s:"酒店步行圈 · 体力崩了就改这家",tag:["tg-near","离酒店最近"],taxi:{kr:"서울 강남구 삼성동 149-23 B1F",cn:"금장한우 COEX"}},
-       {n:"뜨락 庭院",s:"清潭 · 韩牛定食 · 可代烤 · 有代客泊车",tag:["tg-risk","连假需先确认"],taxi:{kr:"서울 강남구 영동대로142길 13-3, 2층",cn:"뜨락（庭院）"}}
+       {n:"벽제갈비 더청담",s:"狎鸥亭罗德奥站附近 · 人均 ₩100,000+",tag:["tg-alt","升级"],taxi:{kr:"서울 강남구 청담동 (벽제갈비 더청담)",cn:"벽제갈비 더청담"}}
      ],
-     tip:"三元花园周日晚市 17:00–21:00、L.O. 20:30，从钟路回程须按此倒推，建议提前线上预约。点单：生牛小排 + 花纹里脊各一份起步，加冷面或酱汤收尾。"}
+     tip:"三元花园周日晚市 L.O. 20:30，建议提前线上预约。点单：生牛小排 + 花纹里脊各一份起步，加冷面或酱汤收尾。"}
   ],
-  chain:[{n:"威斯汀",s:"9:40 出发"},{a:"地铁 40 分钟"},{n:"景福宫",s:"约 1.5 小时"},{a:"打车 8 分钟"},{n:"午餐 · 安国",s:"酱蟹"},{a:"步行"},{n:"换岗 + 青瓦台",s:"14:00 场"},{a:"步行 12 分钟"},{n:"北村",s:"可选 · 17:00 前"},{a:"打车 30 分钟"},{n:"回酒店",s:"休息 1.5 小时"},{a:"打车 15 分钟"},{n:"晚餐 · 韩牛",s:"L.O. 20:30"}],
-  gantt:[["move",3.4,4.4,"地铁"],["cul",7.8,10,"景福宫"],["food",17.8,10,"午餐 酱蟹"],["cul",27.8,6.7,"换岗+青瓦台"],["flex",34.5,6.6,"北村（可砍）",1],["flex",41.1,4.4,"清溪川（可砍）",1],["move",45.5,3.4,"打车"],["rest",48.9,10,"回房休息"],["food",60,13.3,"晚餐 韩牛"]]
+  chain:[{n:"威斯汀",s:"9:20 出发"},{a:"地铁 40 分钟"},{n:"景福宫",s:"含 10:00 换岗"},{a:"步行"},{n:"青瓦台外景",s:"+北村可选"},{a:"打车 40 分钟南下"},{n:"午餐 · 江南/清潭",s:"酱蟹"},{a:"打车"},{n:"回酒店",s:"休息 2 小时"},{a:"打车 15 分钟"},{n:"晚餐 · 韩牛",s:"L.O. 20:30"}],
+  gantt:[["move",0,4.4,"地铁"],["cul",4.5,15.5,"景福宫+换岗+青瓦台"],["flex",20,4.4,"北村（可砍）",1],["move",24.4,4.4,"南下江南"],["food",28.8,10,"午餐 江南/清潭"],["rest",40,16.6,"回酒店休息"],["food",63.3,13.3,"晚餐 韩牛"]]
 },
 {
   id:"0928", date:"9/28", dow:"周一", theme:"你和妈妈的购物日，圣水 → 汉南一条线",
@@ -681,14 +677,15 @@ function chain(arr){
 }
 
 /* ── 选项组 ── */
-function optGroup(key,opts){
+function optGroup(key,opts,lean){
   const cur=ST.picks[key];
   const body=opts.map((o,i)=>{
     const on=cur===undefined?i===0:cur===i;
     const tg=o.tag?`<span class="tagd ${o.tag[0]}">${esc(o.tag[1])}</span>`:"";
+    const sub=lean?"":`<span class="os">${esc(o.s)}</span>`;
     return `<button class="opt" data-pick="${key}" data-i="${i}" aria-pressed="${on}">
       <span class="mk"></span>
-      <span style="flex:1;min-width:0"><span class="on">${esc(o.n)}</span>${tg}<span class="os">${esc(o.s)}</span></span>
+      <span style="flex:1;min-width:0"><span class="on">${esc(o.n)}</span>${tg}${sub}</span>
     </button>`;
   }).join("");
   const sel=opts[cur===undefined?0:cur];
@@ -704,17 +701,18 @@ function svgMap(){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentCo
 
 /* ── 单日 ── */
 function renderDay(d){
-  const notes=d.notes.map(n=>`<div class="note ${n.k||""}">${n.t?`<span class="nt">${esc(n.t)}</span>`:""}${n.b}</div>`).join("");
+  const lean=ST.lean!==false; // 默认简明
+  const notes=lean?"":d.notes.map(n=>`<div class="note ${n.k||""}">${n.t?`<span class="nt">${esc(n.t)}</span>`:""}${n.b}</div>`).join("");
   const rows=d.blocks.map(b=>{
     const dotc=b.kind==="fix"?"fix":(b.kind==="flex"?"flex":(b.kind==="rest"?"rest":""));
     const cardc=b.kind==="fix"?"fix":(b.kind==="flex"?"flex":"");
     let inner=`<div class="t-title">${esc(b.title)}</div>`;
-    if(b.desc) inner+=`<div class="t-desc">${b.desc}</div>`;
-    if(b.pick) inner+=optGroup(b.pick,b.opts);
+    if(b.desc&&!lean) inner+=`<div class="t-desc">${b.desc}</div>`;
+    if(b.pick) inner+=optGroup(b.pick,b.opts,lean);
     if(b.taxi&&!b.pick) inner+=`<div class="acts">
         <button class="btn" data-taxi="${esc(b.taxi.kr)}" data-taxicn="${esc(b.taxi.cn)}">${svgCar()}给司机看</button>
         <a class="btn" href="${naver(b.taxi.cn)}" target="_blank" rel="noopener">${svgMap()}Naver 地图</a></div>`;
-    if(b.tip) inner+=`<div class="t-tip">${b.tip}</div>`;
+    if(b.tip&&!lean) inner+=`<div class="t-tip">${b.tip}</div>`;
     return `<div class="t-row">
       <div class="t-time"><b>${esc(b.time)}</b>${b.dur?esc(b.dur):""}</div>
       <div class="t-ax"><span class="dot ${dotc}"></span></div>
@@ -725,6 +723,11 @@ function renderDay(d){
       <div class="dh-date">${esc(d.date)}<span>${esc(d.dow)}</span></div>
       <div class="dh-theme">${esc(d.theme)}</div>
       <div class="chips">${d.tags.map(t=>`<span class="chip ${t[0]}">${esc(t[1])}</span>`).join("")}</div>
+    </div>
+    <div class="leanbar">
+      <button class="segbtn" data-lean="1" aria-pressed="${lean}">简明</button>
+      <button class="segbtn" data-lean="0" aria-pressed="${!lean}">详细</button>
+      <span class="leanhint">${lean?"只看主干；点「详细」展开提醒与备注":"含全部提醒与点单建议"}</span>
     </div>
     ${notes}
     <h2 class="sec">今天的动线</h2>
@@ -922,6 +925,9 @@ function bind(){
   });
   document.querySelectorAll("[data-chk]").forEach(b=>{
     b.onclick=()=>{const k=b.dataset.chk;ST.done[k]=!ST.done[k];save();render();};
+  });
+  document.querySelectorAll("[data-lean]").forEach(b=>{
+    b.onclick=()=>{ST.lean=(b.dataset.lean==="1");save();render();};
   });
 }
 
