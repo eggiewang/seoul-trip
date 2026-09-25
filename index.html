@@ -186,6 +186,16 @@ a{color:var(--cel-d)}
 .fcard{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:12px 13px;margin:9px 0;box-shadow:var(--shadow)}
 .fcard .fh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
 .fcard .fn{font-family:var(--serif);font-weight:700;font-size:15.5px}
+.catlb{display:inline-block;font-family:var(--sans);font-size:11px;font-weight:700;padding:1px 7px;border-radius:5px;margin-right:7px;vertical-align:2px;white-space:nowrap}
+.lb-sea{background:#d7e9ec;color:var(--sea)}
+.lb-meat{background:var(--dan-l);color:var(--dan)}
+.lb-soup{background:#e3e9e2;color:var(--cel-d)}
+.lb-cafe{background:var(--ochre-l);color:var(--ochre)}
+.lb-snack{background:#e9e2d3;color:#8a6a3c}
+.lblegend{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.zoneh{font-family:var(--serif);font-size:16px;font-weight:700;margin:22px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--cel);color:var(--cel-d);display:flex;align-items:baseline;justify-content:space-between}
+.zonec{font-family:var(--sans);font-size:12px;font-weight:400;color:var(--ink3)}
+.fh .tagd{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:99px;margin-left:5px;font-weight:600;white-space:nowrap}
 .fcard .fk{font-size:12.5px;color:var(--ink3);margin-top:1px;font-family:var(--sans)}
 .fcard .fmeta{display:grid;grid-template-columns:52px 1fr;gap:2px 8px;margin-top:8px;font-size:13px;color:var(--ink2);line-height:1.6}
 .fcard .fmeta dt{color:var(--ink3);font-size:12px}
@@ -253,6 +263,8 @@ a{color:var(--cel-d)}
   .tbl{font-size:14px}
   .tbl th{font-size:13.5px}
   .fcard .fk{font-size:13.5px}
+  .catlb{font-size:11.5px;padding:2px 8px}
+  .zoneh{font-size:16.5px}
   .fcard .fmeta{font-size:14px;grid-template-columns:48px 1fr}
   .fcard .fmeta dt{font-size:13.5px}
   .warnrow{font-size:13.5px}
@@ -329,12 +341,12 @@ const DAYS = [
     {time:"约 17:30",dur:"约 1 小时",kind:"food",title:"三人在酒店附近早点吃晚饭",
      pick:"d1-dinner",
      opts:[
-       {n:"COEX / Starfield 餐厅层",s:"步行 3 分钟 · 全年无休 · 选择多、上菜最快",tag:["tg-def","default"]},
-       {n:"곰바위",s:"奉恩寺站 137 m · 烤牛内脏 · 全年无休",tag:["tg-near","离酒店最近"],taxi:{kr:"서울 강남구 영동대로115길 10",cn:"곰바위（烤牛小肠）"}},
-       {n:"목포명가 봉은사역점",s:"전어当季刺身 · 酒店一站路 · 三人都爱海鲜",tag:["tg-near","海鲜"],taxi:{kr:"서울 강남구 봉은사로111길 6 1층",cn:"목포명가 봉은사역점"}},
-       {n:"현대백화점 무역센터점 食堂层",s:"9/26 已恢复营业 · 周六至 20:30",tag:["tg-alt","零风险"]}
+       {n:"소도둑 牛图屋 三成本店",s:"韩牛烤肉 · 奉恩寺路82길29 · 全年无休 · 招牌牛肩肉+곰탕",tag:["tg-def","default"],taxi:{kr:"서울 강남구 봉은사로82길 29",cn:"소도둑 牛图屋 三成本店"}},
+       {n:"밀각 삼성직영점",s:"备选 · 三成 · 地址与营业时间未核实",tag:["tg-near","备选"],taxi:{kr:"서울 강남구 삼성동 (밀각 삼성직영점 · 出行前复查地址)",cn:"밀각 삼성직영점"}},
+       {n:"COEX / Starfield 餐厅层",s:"步行 3 分钟 · 全年无休 · 选择多、上菜最快",tag:["tg-near","最快兜底"]},
+       {n:"곰바위",s:"奉恩寺站 137 m · 烤牛内脏 · 全年无休",tag:["tg-near","离酒店最近"],taxi:{kr:"서울 강남구 영동대로115길 10",cn:"곰바위（烤牛小肠）"}}
      ],
-     tip:"要赶 18:45 出发看秀，今晚就在酒店附近吃最快的，别排酱蟹（서백자 9/26 不营业）。<b>酱蟹已安排在 9/29 晚餐，那天不在连假、营业最稳。</b>爸爸吃完回房休息。"},
+     tip:"落地当晚吃牛图屋（소도둑）韩牛，就在三成、全年无休、上菜快，不耽误 18:45 出发。밀각 삼성직영点作备选（<b>地址营业时间未核实，出行前请复查</b>）。<b>酱蟹已安排在 9/29 晚餐。</b>爸爸吃完回房休息。"},
     {time:"约 18:45",dur:"约 40 分钟",kind:"move",title:"你和妈妈出发去明洞（爸爸留酒店）",
      desc:"三成/奉恩寺 → 忠武路站 / 乙지로3街站，地铁约 40 分钟；打车约 30–40 分钟。",
      tip:"演出 20:00 开始，留足入场时间。明宝艺术厅 B1。",
@@ -520,7 +532,9 @@ const FOOD = [
  {c:"酱蟹",z:"钟路",n:"큰기와집 大瓦房",k:"큰기와집",a:"서울 종로구 북촌로 22 1층",o:"11:30–15:00 / 17:30–21:00（周一休；公休日照常营业）",p:"₩50,000–70,000",r:"☎ 02-722-9024｜仅接受座位预约、无法指定菜品，必须提前订。米其林推荐韩定食，桌椅座、有中文菜单"},
  {c:"酱蟹",z:"新沙",n:"프로간장게장 신사본점",k:"프로간장게장 신사본점",a:"서울 서초구 강남대로97길 7 프로빌딩",o:"每日 10:00–23:00，标注全年无休",p:"人均 ₩50,000+",r:"☎ 02-543-4126｜仅 8 人以上团体可预约。9/29 酱蟹备选"},
  {c:"酱蟹",z:"三成",n:"서백자 간장게장",k:"서백자 간장게장",a:"서울 강남구 삼성로 542 석천빌딩 2층",o:"每日 10:30–22:00（L.O.21:00）",p:"小份 ₩42,000 / 中份 ₩49,000",r:"☎ 02-552-2254｜可预约。⚠ 9/26 秋夕连假当天不营业，酱蟹已改到 9/29"},
- {c:"韩牛",z:"狎鸥亭",n:"삼원가든 본점",k:"삼원가든",a:"서울 강남구 언주로 835",o:"周末及公休日 11:00–14:30 / 17:00–21:00（周日晚市 L.O.20:30）",p:"₩80,000–100,000",r:"官方标注全年无休并单列公休日时段。可线上实时预约，建议提前订",d:"9/27 晚 default"},
+ {c:"韩牛",z:"三成",n:"소도둑 牛图屋 三成本店",k:"소도둑 삼성본점",a:"서울 강남구 봉은사로82길 29",o:"每日 11:30–22:00（L.O.21:00）· 全年无休",p:"₩40,000–70,000",r:"奉恩寺站附近、离酒店近。招牌牛肩肉、곰탕。9/26 落地当晚 default",d:"9/26 晚 default",near:1},
+ {c:"韩牛",z:"三成",n:"밀각 삼성직영점",k:"밀각 삼성직영점",a:"서울 강남구 삼성동（详细地址未核实）",o:"未核实，出行前请复查",p:"未核实",r:"9/26 晚备选。地址与营业时间均未核实，出行前用 Naver 地图确认",near:1,w:"地址与营业时间未核实"},
+ {c:"韩牛",z:"狎鸥亭",n:"삼원가든 본점",k:"삼원가든",a:"서울 강남구 언주로 835",o:"周末及公休日 11:00–14:30 / 17:00–21:00（周日晚市 L.O.20:30）",p:"₩80,000–100,000",r:"官方标注全年无休并单列公休日时段。可线上实时预约，建议提前订"},
  {c:"韩牛",z:"三成",n:"금장한우 COEX",k:"금장한우",a:"서울 강남구 삼성동 149-23 B1F",o:"每日 11:30–21:30",p:"₩70,000–90,000",r:"☎ 02-568-8822｜建议预约。商场内，连假较稳",near:1},
  {c:"韩牛",z:"清潭",n:"벽제갈비 더청담",k:"벽제갈비 더청담",a:"狎鸥亭罗德奥站 2 号出口附近",o:"每日 11:30–22:00（休息 15:00–17:00）",p:"₩100,000+",r:"可预约、代客泊车。连假需电话确认"},
  {c:"韩牛",z:"清潭",n:"뜨락 庭院",k:"뜨락",a:"서울 강남구 영동대로142길 13-3, 2층",o:"周一–周六 11:30–23:00｜周日 11:30–22:00",p:"未核实，出行前请复查",r:"韩牛定食、可代烤、代客泊车。有来源标注公休日休息 → 连假需先电话确认",w:"人均未核实"},
@@ -811,12 +825,22 @@ function pickName(d,kind,ord){
 }
 
 /* ── 吃什么 ── */
-const FCATS=["全部","酱蟹","韩牛","猪五花","烤牛内脏","生食海鲜","清淡保底","咖啡甜品","小吃炸鸡","正餐其他"];
-function renderFood(){
-  const cat=ST.fcat||"全部";
-  const list=FOOD.filter(f=>cat==="全部"||f.c===cat);
-  const cards=list.map(f=>`<div class="fcard">
-    <div class="fh"><div><div class="fn">${esc(f.n)}</div><div class="fk">${esc(f.k)}</div></div>
+/* 区域分组：把细分 z 归到用户能一眼定位的大区 */
+const ZONE_GROUPS=[
+  {key:"三成 / 奉恩寺（酒店步行圈）",zs:["三成","论岘"]},
+  {key:"新论岘 / 江南 / 新沙 / 驿三",zs:["新论岘","江南","新沙","驿三"]},
+  {key:"狎鸥亭 / 清潭 / 学洞",zs:["狎鸥亭","清潭","学洞"]},
+  {key:"圣水洞",zs:["圣水"]},
+  {key:"汉南洞",zs:["汉南"]},
+  {key:"钟路 / 其他",zs:["钟路","道谷"]}
+];
+/* 品类标签配色 */
+const CAT_CLASS={"酱蟹":"lb-sea","生食海鲜":"lb-sea","韩牛":"lb-meat","猪五花":"lb-meat","烤牛内脏":"lb-meat","清淡保底":"lb-soup","正餐其他":"lb-soup","咖啡甜品":"lb-cafe","小吃炸鸡":"lb-snack"};
+function catLabel(c){return `<span class="catlb ${CAT_CLASS[c]||"lb-soup"}">${esc(c)}</span>`;}
+
+function foodCard(f){
+  return `<div class="fcard">
+    <div class="fh"><div><div class="fn">${catLabel(f.c)}${esc(f.n)}</div><div class="fk">${esc(f.k)}</div></div>
       <div style="text-align:right">${f.d?`<span class="tagd tg-def">${esc(f.d)}</span>`:""}${f.near?`<span class="tagd tg-near">酒店步行圈</span>`:""}</div></div>
     <dl class="fmeta">
       <dt>地址</dt><dd>${esc(f.a)}</dd>
@@ -828,15 +852,34 @@ function renderFood(){
     <div class="acts">
       <button class="btn" data-taxi="${esc(f.a)}" data-taxicn="${esc(f.n)}">${svgCar()}给司机看</button>
       <a class="btn" href="${naver(f.k)}" target="_blank" rel="noopener">${svgMap()}Naver 地图</a>
-    </div></div>`).join("");
-  return `<h2 class="sec">餐厅速查表</h2>
-    <div class="note"><span class="nt">三条选店规则</span>
-    ① <b>秋夕状态是第一筛子</b>，只有 9/26、9/27 受影响，凡标「需复查」的出行前必须电话确认；② 营业时间与价格来自 Naver 生态、餐厅官网及韩国旅游官方数据库并多源交叉，<b>核实不到的都标了「未核实」，没有编造</b>；③「是否适合长辈」是硬指标。</div>
-    <div class="note gold"><span class="nt">양곱창 不是羊肉</span>
-    「양」是<b>牛的第一个胃（瘤胃）</b>，양곱창 = 牛胃 + 牛小肠，完全不含羊肉。两家 양곱창 老店周日及公休日休息 → <b>只能排 9/28</b>。</div>
-    <div class="filters">${FCATS.map(c=>`<button data-fcat="${c}" aria-pressed="${c===cat}">${c}</button>`).join("")}</div>
-    <p class="muted">共 ${list.length} 家。点「给司机看」可全屏显示韩文地址。</p>
-    ${cards}`;
+    </div></div>`;
+}
+function renderFood(){
+  const zg=ST.fzone||"全部区域";
+  // 每个店归到一个大区
+  const zoneOf=f=>{const g=ZONE_GROUPS.find(z=>z.zs.includes(f.z));return g?g.key:"钟路 / 其他";};
+  const zoneNames=["全部区域"].concat(ZONE_GROUPS.map(z=>z.key));
+  const filters=`<div class="filters">${zoneNames.map(z=>`<button data-fzone="${esc(z)}" aria-pressed="${z===zg}">${esc(z==="全部区域"?z:z.split("（")[0])}</button>`).join("")}</div>`;
+  let sections="",total=0;
+  ZONE_GROUPS.forEach(g=>{
+    if(zg!=="全部区域"&&zg!==g.key) return;
+    const items=FOOD.filter(f=>zoneOf(f)===g.key);
+    if(!items.length) return;
+    total+=items.length;
+    sections+=`<h3 class="zoneh">${esc(g.key)}<span class="zonec">${items.length} 家</span></h3>`+items.map(foodCard).join("");
+  });
+  return `<h2 class="sec">餐厅速查表 · 按区域</h2>
+    <div class="note"><span class="nt">怎么用</span>
+    按<b>区域</b>归类——某家走空时，同一小节里就是它<b>附近的备选</b>，当场换最快。每家店名前的彩色标签是<b>品类</b>（酱蟹/韩牛/咖啡…）。点「给司机看」全屏显示韩文地址。</div>
+    <div class="note gold"><span class="nt">两条提醒</span>
+    ① 秋夕连假只影响 9/26–9/27，凡标「需复查」的出行前电话确认；② 营业时间与价格多源交叉，<b>核不到的都标「未核实」，没有编造</b>。양곱창 的「양」是牛胃不是羊肉，两家老店周日及公休日休、只能排 9/28。</div>
+    <div class="lblegend">
+      <span class="catlb lb-sea">酱蟹/海鲜</span><span class="catlb lb-meat">烤肉/内脏</span>
+      <span class="catlb lb-soup">汤饭/清淡</span><span class="catlb lb-cafe">咖啡甜品</span><span class="catlb lb-snack">小吃炸鸡</span>
+    </div>
+    ${filters}
+    <p class="muted">共 ${total} 家。</p>
+    ${sections}`;
 }
 
 /* ── 清单 ── */
@@ -931,8 +974,8 @@ function bind(){
   document.querySelectorAll("[data-taxi]").forEach(b=>{
     b.onclick=()=>showTaxi(b.dataset.taxi,b.dataset.taxicn);
   });
-  document.querySelectorAll("[data-fcat]").forEach(b=>{
-    b.onclick=()=>{ST.fcat=b.dataset.fcat;save();render();window.scrollTo({top:0});};
+  document.querySelectorAll("[data-fzone]").forEach(b=>{
+    b.onclick=()=>{ST.fzone=b.dataset.fzone;save();render();window.scrollTo({top:0});};
   });
   document.querySelectorAll("[data-chk]").forEach(b=>{
     b.onclick=()=>{const k=b.dataset.chk;ST.done[k]=!ST.done[k];save();render();};
